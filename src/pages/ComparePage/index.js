@@ -1,6 +1,6 @@
 import React from 'react';
 import {AgentsApi} from '../../api'
-import { Container, Form, Row, Col, ProgressBar } from 'react-bootstrap';
+import { Container, Row, Col, ProgressBar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import addCategoryStats from '../../lib/addCategoryStats';
 import './ComparePage.scss';
@@ -13,7 +13,7 @@ export default class ComparePage extends React.Component{
     agent2: null,
   }
 
-  service = new AgentsApi
+  service = new AgentsApi()
 
   componentDidMount(){
     const {agent1Id, agent2Id} = this.props.match.params;

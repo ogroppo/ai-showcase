@@ -1,7 +1,7 @@
 import React from 'react';
 import { AgentsApi } from '../../api'
-import { Container, Form } from 'react-bootstrap';
-import { Link, match } from 'react-router-dom';
+import { Container, Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import addCategoryStats from '../../lib/addCategoryStats';
 
 export default class AgentPage extends React.Component{
@@ -11,7 +11,7 @@ export default class AgentPage extends React.Component{
     agents: []
   }
 
-  service = new AgentsApi
+  service = new AgentsApi()
   
   componentDidMount(){
     const {agentId} = this.props.match.params;
@@ -36,7 +36,7 @@ export default class AgentPage extends React.Component{
         <h1>Agent overview</h1>
         <hr></hr>
         {
-          error && <p>Error: {error.message}</p>
+          error && <Alert variant="danger">Error: {error.message}</Alert>
         }
         {
           loading && <p>Fetching...</p>

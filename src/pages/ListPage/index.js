@@ -12,7 +12,7 @@ export default class ListPage extends React.Component{
     selectedAgents: []
   }
 
-  service = new AgentsApi
+  service = new AgentsApi()
 
   componentDidMount(){
     this.setState({loading: true})
@@ -43,23 +43,35 @@ export default class ListPage extends React.Component{
   }
 
   filterAgents = debounce(async (searchString) => {
-    console.log(searchString);
     try{
       const agents = await this.service.searchAgents(searchString)
       this.setState({agents})
     }catch(error){
       this.setState({error})
+    }finally{
+      this.setState({searching: false})
     }
   }, 200)
     
   handleOnChange = (e) => {
     const searchString = e.target.value
-    this.setState({searchString})
+    this.setState({
+      searchString,
+      searching: true
+    })
     this.filterAgents(searchString)
   }
 
   render(){
-    const {agents, loading, error, selectedAgents, searchString} = this.state
+    const {
+      agents, 
+      loading,
+      error,
+      selectedAgents,
+      searchString,
+      searching
+    } = this.state
+
     return (
       <div className="ListPage">
         <Container>
@@ -73,8 +85,11 @@ export default class ListPage extends React.Component{
         }
         {
           !loading && !error && <>
-          <Form.Control className="mb-4" type="search" value={searchString} onChange={this.handleOnChange} placeholder="Search for agent (key-sensitive)"/>
-          <ul className="pl-0">
+          <Form.Group controlId={`search-bar`} className="position-relative mb-4">
+          <Form.Control type="search" value={searchString} onChange={this.handleOnChange} placeholder="Search for agent (key-sensitive)"/>
+          {searching && <span style={{position: 'absolute', left: 0, top: "40px", fontSize: '.8rem'}}>Searching...</span>}
+          </Form.Group>
+          <ul className="pl-0 pt-1">
           {
             agents.map(agent => {
               return <li className="d-flex">

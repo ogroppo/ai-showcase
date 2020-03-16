@@ -4,8 +4,7 @@ import {Navbar, Container} from 'react-bootstrap';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import ListPage from './pages/ListPage'
 import AgentPage from './pages/AgentPage';
