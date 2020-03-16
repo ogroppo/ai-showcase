@@ -4,6 +4,7 @@ import { Container, Row, Col, ProgressBar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import addCategoryStats from '../../lib/addCategoryStats';
 import './ComparePage.scss';
+import { Alert } from 'react-bootstrap';
 
 export default class ComparePage extends React.Component{
   state = {
@@ -45,7 +46,7 @@ export default class ComparePage extends React.Component{
         <h1>Compare Agents</h1>
         <hr/>
         {
-          error && <p>Error: {error.message}</p>
+          error && <Alert variant="danger">Error: {error.message}</Alert>
         }
         {
           loading && <p>Fetching agents...</p>
